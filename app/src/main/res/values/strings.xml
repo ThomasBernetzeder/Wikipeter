@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Wikipeter</string>
+    <string name="qr_code_focus">Bitte Kamera auf QR Code des Produktes fokusieren.</string>
 </resources>
