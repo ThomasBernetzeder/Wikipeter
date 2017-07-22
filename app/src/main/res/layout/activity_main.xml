@@ -13,13 +13,14 @@
     <SurfaceView
         android:id="@+id/cameraPreview"
         android:layout_width="match_parent"
-        android:layout_height="720px"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
     <TextView
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:textSize="20sp"
+        android:textColor="#fff"
         android:id="@+id/txtResult"
         android:text="@string/qr_code_focus"
         android:layout_width="match_parent"
