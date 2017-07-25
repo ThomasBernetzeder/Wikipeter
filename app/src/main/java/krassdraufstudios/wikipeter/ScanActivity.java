@@ -1,6 +1,7 @@
 package krassdraufstudios.wikipeter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.Manifest;
 import android.os.Vibrator;
@@ -20,7 +21,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class ScanActivity extends AppCompatActivity {
 
     SurfaceView cameraPreview;
     TextView txtResult;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                     //Request permission
-                    ActivityCompat.requestPermissions(MainActivity.this,
+                    ActivityCompat.requestPermissions(ScanActivity.this,
                             new String[]{Manifest.permission.CAMERA}, RequestCameraPermissionID);
                     return;
                 }
@@ -106,10 +107,26 @@ public class MainActivity extends AppCompatActivity {
                     txtResult.post(new Runnable() {
                         @Override
                         public void run() {
-                            //Create Vibrate
+
+                            // Create Vibrate
                             Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(1000);
+
+                            // Display QR-Code Value on Screen
                             txtResult.setText(qr_codes.valueAt(0).displayValue);
+
+                            // Save QR-Code JSON Data into a String
+                            String productInformation = qr_codes.valueAt(0).toString();
+
+                            // After Scanning the QR-Code, switch to the ProductOverviewActivity
+                            Intent intent = new Intent(getApplicationContext(), ProductOverviewActivity.class);
+
+                            // Migrate String to ProductOverviewActivity
+                            intent.putExtra("ProductInformation", productInformation);
+
+                            // start ProductOverviewActivity
+                            startActivity(intent);
+
                         }
                     });
                 }
