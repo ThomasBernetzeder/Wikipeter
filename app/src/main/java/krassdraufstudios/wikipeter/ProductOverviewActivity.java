@@ -1,6 +1,6 @@
 package krassdraufstudios.wikipeter;
 
-import android.content.res.Resources;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONObject;
+import org.json.JSONException;
 
 public class ProductOverviewActivity extends AppCompatActivity {
 
@@ -38,15 +42,53 @@ public class ProductOverviewActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private static String product;
 
+    private static String product_id;
+    private static String product_name;
+    private static String product_category;
+    private static String product_price;
+    private static String product_spezifications;
+    private static String product_producer_page;
+    private static String product_producer_trailer;
+
+    JSONObject jsonObject;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_overview);
 
-        Bundle qrCodeData = getIntent().getExtras();
+        /*Bundle qrCodeData = getIntent().getExtras();
         if (qrCodeData != null) {
             product = qrCodeData.getString("ProductInformation");
-        }
+
+            try {
+                jsonObject = new JSONObject(product);
+            } catch (JSONException e){
+                Toast.makeText(this,"QR-Code konnte nicht ausgelesen werden.", Toast.LENGTH_SHORT).show();
+
+                // After retrieving Error-Message, switch back to ScanActivity
+                Intent intent = new Intent(getApplicationContext(), ScanActivity.class);
+
+                // start ScanActivity
+                startActivity(intent);
+            }
+
+            try {
+                product_id = jsonObject.getString("id");
+                product_name = jsonObject.getString("name");
+                product_category = jsonObject.getString("category");
+                product_price = jsonObject.getString("price");
+                product_spezifications = jsonObject.getString("spezifications");
+                product_producer_page = jsonObject.getString("producer_product_page");
+                product_producer_trailer = jsonObject.getString("producer_product_trailer");
+
+            } catch (JSONException e) {
+                Toast.makeText(this,"QR-Code konnte nicht verarbeitet werden.", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -96,46 +138,6 @@ public class ProductOverviewActivity extends AppCompatActivity {
     }
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-
-            //Resources res = getResources();
-            //String productOverview = String.format(res.getString(R.string.product_information), product);
-
-            View rootView = inflater.inflate(R.layout.fragment_product_overview, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            //textView.setText(getString(R.string.product_information, getArguments()));
-            return rootView;
-        }
-    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -147,9 +149,23 @@ public class ProductOverviewActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            // Returning the current tabs
+            switch (position) {
+                case 0:
+                    TabOneProductDetails tab1 = new TabOneProductDetails();
+                    return tab1;
+
+                case 1:
+                    TabTwoProductReviews tab2 = new TabTwoProductReviews();
+                    return tab2;
+
+                case 2:
+                    TabThreeProducerVideos tab3 = new TabThreeProducerVideos();
+                    return tab3;
+
+                default:
+                    return null;
+            }
         }
 
         @Override
@@ -162,11 +178,11 @@ public class ProductOverviewActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "PRODUKT DETAILS";
                 case 1:
-                    return "SECTION 2";
+                    return "TESTBERICHTE";
                 case 2:
-                    return "SECTION 3";
+                    return "HERSTELLER VIDEOS";
             }
             return null;
         }
