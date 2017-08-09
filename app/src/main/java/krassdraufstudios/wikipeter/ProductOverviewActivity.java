@@ -40,15 +40,15 @@ public class ProductOverviewActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private static String product;
+    private String product;
 
-    private static String product_id;
-    private static String product_name;
-    private static String product_category;
-    private static String product_price;
-    private static String product_spezifications;
-    private static String product_producer_page;
-    private static String product_producer_trailer;
+    public String product_id;
+    public String product_name;
+    public String product_category;
+    public String product_price;
+    public String product_spezifications;
+    public String product_producer_page;
+    public String product_producer_trailer;
 
     JSONObject jsonObject;
 
@@ -58,10 +58,10 @@ public class ProductOverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_overview);
 
-        /*Bundle qrCodeData = getIntent().getExtras();
+        Bundle qrCodeData = getIntent().getExtras();
         if (qrCodeData != null) {
             product = qrCodeData.getString("ProductInformation");
-
+            // Toast.makeText(this, product, Toast.LENGTH_SHORT).show();                             //Test, if whole QR-Code information is given to activity
             try {
                 jsonObject = new JSONObject(product);
             } catch (JSONException e){
@@ -83,12 +83,20 @@ public class ProductOverviewActivity extends AppCompatActivity {
                 product_producer_page = jsonObject.getString("producer_product_page");
                 product_producer_trailer = jsonObject.getString("producer_product_trailer");
 
+                /*Toast.makeText(this, product_id, Toast.LENGTH_SHORT).show();                       //Test, if key information is seperated from complete information
+                Toast.makeText(this, product_name, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, product_category, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, product_price, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, product_spezifications, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, product_producer_page, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, product_producer_trailer, Toast.LENGTH_SHORT).show();*/
+
             } catch (JSONException e) {
                 Toast.makeText(this,"QR-Code konnte nicht verarbeitet werden.", Toast.LENGTH_SHORT).show();
             }
 
 
-        }*/
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

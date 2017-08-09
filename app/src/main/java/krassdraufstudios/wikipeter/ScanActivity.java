@@ -2,6 +2,7 @@ package krassdraufstudios.wikipeter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.Manifest;
 import android.os.Vibrator;
@@ -13,6 +14,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -28,6 +30,7 @@ public class ScanActivity extends AppCompatActivity {
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
     final int RequestCameraPermissionID = 1001;
+    String intentProductInformation;
 
 
     @Override
@@ -116,13 +119,13 @@ public class ScanActivity extends AppCompatActivity {
                             txtResult.setText(qr_codes.valueAt(0).displayValue);
 
                             // Save QR-Code JSON Data into a String
-                            String productInformation = qr_codes.valueAt(0).toString();
+                            intentProductInformation = qr_codes.valueAt(0).toString();
 
                             // After Scanning the QR-Code, switch to the ProductOverviewActivity
                             Intent intent = new Intent(getApplicationContext(), ProductOverviewActivity.class);
 
                             // Migrate String to ProductOverviewActivity
-                            intent.putExtra("ProductInformation", productInformation);
+                            intent.putExtra("ProductInformation", txtResult.getText().toString());
 
                             // start ProductOverviewActivity
                             startActivity(intent);

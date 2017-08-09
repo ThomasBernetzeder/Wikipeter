@@ -13,12 +13,15 @@ import android.widget.TextView;
 
 public class TabOneProductDetails extends Fragment {
 
+    TextView txtProduct;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Get the view from fragment_tab_one_product_details
         View rootView = inflater.inflate(R.layout.fragment_tab_one_product_details, container, false);
+
 
         return rootView;
 
